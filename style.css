@@ -5,28 +5,45 @@ body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 512px 1fr;
+    grid-template-areas: 
+        "header header"
+        "nav main"
+        "footer footer";
     min-height: 100vh;
-    overflow: auto;
+    overflow-y: auto;
 }
 
-h1 {
-    color: #333;
+header {
+    grid-area: header;
+    background-color: #ffffff;
+    text-align: center;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 1260px;
+    margin: 0 auto;
+    padding: 20px;
+    border-bottom: 2px solid #d4d4d4; 
+
 }
 
 #Logo {
     width: 160px;
     height: auto;
-    margin: 20px;
+    margin-right: 20px;
 }
 
 #searchAndButtons {
     display: flex;
     align-items: center;
     flex: 1;
-    margin-left: 20px;
 }
 
 #search-bar {
@@ -77,32 +94,43 @@ h1 {
     background-color: #d4d4d4;
 }
 
-.container {
-    display: flex;
-    align-items: center;
-    width: 100%;
-    max-width: 1200px;
+nav {
+    grid-area: nav;
     padding: 20px;
-    box-sizing: border-box;
-    justify-content: center; 
-    border-bottom: 2px solid #d4d4d4; 
+    margin-left: 25%;
 }
 
-.content-box {
+.sideBox {
     width: 100%;
-    max-width: 1200px;
-    flex: 1;
+    height: 100%;
     box-sizing: border-box;
     padding: 20px;
-    margin-top: 20px;
-    align-items: center;
     border: 4px solid #333;
     background-color: #e7e7e7;
     font-family: 'Press Start 2P', Arial, sans-serif;
     box-shadow: 0 0 0 2px #fff, 4px 4px 0 0 #333;
+    margin-bottom: 20px; 
+}
+
+main {
+    grid-area: main;
+    padding: 20px;
+    margin-left: 5%;
+}
+
+.content-box {
+    width: 68%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 20px;
+    border: 4px solid #333;
+    background-color: #e7e7e7;
+    font-family: 'Press Start 2P', Arial, sans-serif;
+    box-shadow: 0 0 0 2px #fff, 4px 4px 0 0 #333
 }
 
 footer {
+    grid-area: footer;
     background-color: #333;
     color: white;
     text-align: center;
@@ -114,10 +142,12 @@ footer ul {
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0;
+    margin: 0;
 }
 
 footer ul li {
-    margin: 0 60px;
+    margin: 0 20px;
 }
 
 footer ul li a {
@@ -128,17 +158,3 @@ footer ul li a {
 footer ul li a:hover {
     text-decoration: underline;
 }
-
-.sideBox {
-    width: 100%;
-    max-width: 200px;
-    flex: 1;
-    box-sizing: border-box;
-    padding: 20px;
-    margin-top: 20px;
-    border: 4px solid #333;
-    background-color: #e7e7e7;
-    font-family: 'Press Start 2P', Arial, sans-serif;
-    box-shadow: 0 0 0 2px #fff, 4px 4px 0 0 #333;
-}
-

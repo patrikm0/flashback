@@ -8,22 +8,30 @@
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <img src="LOGO_modified.png" alt="Top left Logo" id="Logo">
-        <div id="searchAndButtons">
-            <input type="text" id="search-bar" placeholder="Search...">
-            <button class="button" id="login-button">Log In</button>
-            <button class="button" id="signup-button">Sign Up</button>
+    <header class="header">
+        <div class="container">
+            <img src="LOGO_modified.png" alt="Top left Logo" id="Logo">
+            <div id="searchAndButtons">
+                <input type="text" id="search-bar" placeholder="Search...">
+                <button class="button" id="login-button">Log In</button>
+                <button class="button" id="signup-button">Sign Up</button>
+            </div>
+            <button id="language-button">Language</button>
         </div>
-        <button id="language-button">Language</button>
-    </div>
-    <div class="content-box"></div>
-    <div class="sideBox">
-        <label for="Genres">Genres:</label>
-        <select id="Genres">
-            <!--Genres-->
-        </select>
-    </div>
+    </header>
+
+    <nav class="nav">
+        <div class="sideBox">
+            <label for="Genres">Genres:</label>
+            <select id="Genres">
+                <!--Genres-->
+            </select>
+        </div> 
+    </nav>
+
+    <main class="main">
+        <div class="content-box"></div>
+    </main>
     <footer>
         <ul>
             <li>© Flashback</li>
