@@ -30,7 +30,7 @@ header {
     max-width: 1260px;
     margin: 0 auto;
     padding: 20px;
-    border-bottom: 2px solid #d4d4d4; 
+    border-bottom: 2px solid #161054; 
 
 }
 
@@ -52,10 +52,10 @@ header {
     font-size: 10px;
     margin-right: 10px;
     border-radius: 0; 
-    border: 4px solid #333;
-    background-color: #e7e7e7;
+    border: 4px solid #ac35ff;
+    background-color: #ffd301; 
     font-family: 'Press Start 2P', Arial, sans-serif;
-    box-shadow: 0 0 0 2px #fff, 4px 4px 0 0 #333;
+    box-shadow: 0 0 0 2px #161054, 4px 4px 0 0 #161054;
 }
 
 .button {
@@ -64,16 +64,15 @@ header {
     font-size: 10px;
     cursor: pointer;
     border-radius: 0; 
-    border: 4px solid #333;
-    background-color: #e7e7e7;
+    border: 4px solid #ac35ff;
+    background-color: #ffd301; 
     transition: transform 0.3s ease, background-color 0.3s ease;
     font-family: 'Press Start 2P', Arial, sans-serif;
-    box-shadow: 0 0 0 2px #fff, 4px 4px 0 0 #333;
+    box-shadow: 0 0 0 2px #161054, 4px 4px 0 0 #161054;
 }
 
 .button:hover {
     transform: scale(1.1);
-    background-color: #d4d4d4;
 }
 
 #language-button {
@@ -82,16 +81,15 @@ header {
     cursor: pointer;
     margin-left: 20px;
     border-radius: 0; 
-    border: 4px solid #333;
-    background-color: #e7e7e7;
+    border: 4px solid #ac35ff;
+    background-color: #ffd301; 
     transition: transform 0.3s ease, background-color 0.3s ease;
     font-family: 'Press Start 2P', Arial, sans-serif;
-    box-shadow: 0 0 0 2px #fff, 4px 4px 0 0 #333;
+    box-shadow: 0 0 0 2px #161054, 4px 4px 0 0 #161054;
 }
 
 #language-button:hover {
     transform: scale(1.1);
-    background-color: #d4d4d4;
 }
 
 nav {
@@ -105,11 +103,10 @@ nav {
     height: 100%;
     box-sizing: border-box;
     padding: 20px;
-    border: 4px solid #333;
+    border: 6px solid #ac35ff;
     background-color: #e7e7e7;
     font-family: 'Press Start 2P', Arial, sans-serif;
-    box-shadow: 0 0 0 2px #fff, 4px 4px 0 0 #333;
-    margin-bottom: 20px; 
+    box-shadow: 0 0 0 3px #161054, 6px 6px 0 0 #161054;    margin-bottom: 20px; 
 }
 
 main {
@@ -123,11 +120,10 @@ main {
     height: 100%;
     box-sizing: border-box;
     padding: 20px;
-    border: 4px solid #333;
+    border: 6px solid #ac35ff;
     background-color: #e7e7e7;
     font-family: 'Press Start 2P', Arial, sans-serif;
-    box-shadow: 0 0 0 2px #fff, 4px 4px 0 0 #333
-}
+    box-shadow: 0 0 0 3px #161054, 6px 6px 0 0 #161054;}
 
 footer {
     grid-area: footer;
