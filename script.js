@@ -22,6 +22,16 @@ document.getElementById('close-login').onclick = function() {
     document.getElementById('login-modal').style.display = 'none';
 }
 
+// Event Listener for the Language Modal
+document.getElementById('language-button').onclick = function() {
+    document.getElementById('language-modal').style.display = 'block';
+}
+
+// Event Listener for closing the Language Modal
+document.getElementById('close-language').onclick = function() {
+    document.getElementById('language-modal').style.display = 'none';
+}
+
 
 // Submit event for Signup
 document.getElementById('signup-form').addEventListener('submit', async (e) => {
@@ -69,3 +79,4 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
         alert('Login failed: ' + data.message);
     }
 });
+
