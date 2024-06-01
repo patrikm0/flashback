@@ -238,6 +238,9 @@ main {
     background-color: #e7e7e7;
     font-family: 'Press Start 2P', Arial, sans-serif;
     box-shadow: 0 0 0 3px #161054, 6px 6px 0 0 #161054;
+    display: flex;
+    flex-wrap: wrap; /* Allows the items to wrap to the next row */
+    justify-content: space-between; /* Adds space between the items */
 }
 
 footer {
@@ -270,6 +273,90 @@ footer ul li a:hover {
     text-decoration: underline;
 }
 
+.game-card {
+    position: relative;
+    border: 2px solid #ac35ff;
+    background-color: #e7e7e7;
+    box-shadow: 0 0 0 3px #161054, 6px 6px 0 0 #161054;
+    margin-bottom: 20px;
+    padding: 10px; /* Reduced padding */
+    font-family: 'Press Start 2P', Arial, sans-serif;
+    text-align: center;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    width: 22%; /* Each game card will take up 22% of the container width */
+    margin: 1%; /* Adding margin to separate the cards */
+    box-sizing: border-box; /* Ensures padding and border are included in the width */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 2px #161054, 8px 8px 0 0 #161054;
+}
+
+.game-card img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 10px;
+}
+
+.game-title {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: #ffd301;
+    padding: 10px;
+    border: 2px solid #ac35ff;
+    box-shadow: 0 0 0 2px #161054, 4px 4px 0 0 #161054;
+    z-index: 1;
+}
+
+#game-detail-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh; /* Adjust height as needed */
+    padding: 20px;
+    border: 6px solid #ac35ff;
+    background-color: #e7e7e7;
+    font-family: 'Press Start 2P', Arial, sans-serif;
+    box-shadow: 0 0 0 3px #161054, 6px 6px 0 0 #161054;
+    text-align: center;
+    margin: 0 auto; /* Center horizontally */
+}
+
+/* Styles specific to game_detail.html */
+.game-detail-body header .container {
+    display: none; /* Hide the header container for game detail page */
+}
+
+.game-detail-body main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 60px); /* Ensure the content box is centered within the viewport */
+}
+
+.game-detail-body .game-detail-content-box {
+    width: 60%; /* Adjust width as needed */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 6px solid #ac35ff;
+    background-color: #e7e7e7;
+    box-shadow: 0 0 0 3px #161054, 6px 6px 0 0 #161054;
+    margin: auto; /* Center the box */
+}
+
 /* Media Queries */
 @media (max-width: 1024px) {
     body {
@@ -291,7 +378,7 @@ footer ul li a:hover {
         margin-right: 0;
     }
 
-    .content-box, .sideBox {
+    .content-box, .sideBox, .game-detail-content-box {
         width: 100%;
     }
 

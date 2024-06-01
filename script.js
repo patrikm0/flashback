@@ -1,6 +1,54 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Website ist geladen');
+    console.log('Game data:', window.game); // This should log the game data
+    displayGames();
 });
+
+// Function to display games
+function displayGames() {
+    const contentBox = document.querySelector('.content-box');
+    const gameData = window.game; // Access the game data from games.js
+
+    for (const key in gameData) {
+        if (gameData.hasOwnProperty(key)) {
+            const game = gameData[key];
+
+            // Create game card
+            const gameCard = document.createElement('div');
+            gameCard.classList.add('game-card');
+            gameCard.setAttribute('data-game', key); // Add a data attribute for navigation
+
+            // Add game poster
+            const gamePoster = document.createElement('img');
+            gamePoster.src = game.Poster;
+            gamePoster.alt = `${game.Title} Poster`;
+            gameCard.appendChild(gamePoster);
+
+            // Add game title (hidden initially)
+            const gameTitle = document.createElement('h3');
+            gameTitle.textContent = game.Title;
+            gameTitle.classList.add('game-title');
+            gameCard.appendChild(gameTitle);
+
+            // Add hover event to show title
+            gameCard.addEventListener('mouseover', () => {
+                gameTitle.style.display = 'block';
+            });
+
+            gameCard.addEventListener('mouseout', () => {
+                gameTitle.style.display = 'none';
+            });
+
+            // Add click event to navigate to game detail page
+            gameCard.addEventListener('click', () => {
+                window.location.href = `game_detail.html?game=${key}`;
+            });
+
+            // Append game card to content box
+            contentBox.appendChild(gameCard);
+        }
+    }
+}
 
 // Event Listener for Sign Up Button
 document.getElementById('signup-button').onclick = function() {
