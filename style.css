@@ -346,7 +346,7 @@ footer ul li a:hover {
 }
 
 .game-detail-body .game-detail-content-box {
-    width: 60%; /* Adjust width as needed */
+    width: 80%; /* Adjusted width for better visibility */
     display: flex;
     flex-direction: column;
     align-items: center;

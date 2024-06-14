@@ -82,8 +82,22 @@ const game = {
 
     "Fruit Ninja": {
         Title: "Fruit Ninja",
+        Released: "2010-04-21",
+        Genres: ["Action", "Simulation", "Sports"],
+        Publisher: "Halfbrick Studios",
+        Plot: "Welcome to the dojo, ninja. Your objective: become a master of slicing fruit! What better way to do that than play Fruit Ninja, the original hit fruit-slicing mobile game? ? Unsheathe your blade and start the juicy carnage with the three classic game modes that billions of players have come to know and love.",
         Poster: "https://img.gamedistribution.com/a186dc9ac7f548f884db8ff54df6dd9f-512x384.jpg",
         Iframe: "https://html5.gamedistribution.com/a186dc9ac7f548f884db8ff54df6dd9f/?gd_sdk_referrer_url=http://127.0.0.1:5500/game_detail.html?game=Fruit%20Ninja"
+    },
+
+    "Zombotron 1": {
+        Title: "Zombotron 1",
+        Released: "2011-07-26",
+        Genres: ["Action", "Shooter", "Puzzle"],
+        Publisher: "Ant. Karlov Games",
+        Plot: "In Zombotron 1, you play as a hero stranded on a zombie-infested planet. Explore underground tunnels, fight hordes of undead and monstrous creatures, and gather weapons and equipment to survive. Solve puzzles and navigate deadly traps to uncover the planet's secrets and find a way to escape.",
+        Poster: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/664830/header.jpg?t=1700323566",
+        Iframe: "https://game3.glov3.me/uploads/game/html5/6020/"
     }
 };
 

@@ -18,12 +18,12 @@ function displayGameDetails(game) {
     const gameIframe = document.createElement('iframe');
     gameIframe.src = game.Iframe;
     gameIframe.width = "100%";
-    gameIframe.height = "600";
+    gameIframe.height = "500";
     gameIframe.frameBorder = "0";
     gameDetailContent.appendChild(gameIframe);
 
     // Add game plot below the iframe
-    const gamePlot = document.createElement("p"); 
+    const gamePlot = document.createElement("p");
     gamePlot.textContent = game.Plot;  
     gameDetailContent.appendChild(gamePlot); 
 
