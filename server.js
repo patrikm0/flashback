@@ -1,8 +1,208 @@
+//Login
+/**
+ * @swagger
+ * /signup:
+ *   post:
+ *     summary: Register a new user
+ *     description: Registers a new user and stores their information securely.
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - username
+ *               - email
+ *               - password
+ *             properties:
+ *               username:
+ *                 type: string
+ *                 description: User's username
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: User's email address
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 description: User's password
+ *     responses:
+ *       200:
+ *         description: User registered successfully
+ *       400:
+ *         description: Email already registered or bad request parameters
+ */
+
+//Signup
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Authenticate a user
+ *     description: Logs in a user by email and password.
+ *     tags:
+ *       - Authentication
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *                 description: User's email address
+ *               password:
+ *                 type: string
+ *                 format: password
+ *                 description: User's password
+ *     responses:
+ *       200:
+ *         description: Login successful
+ *       401:
+ *         description: Unauthorized, invalid email or password
+ */
+
+//Logout
+/**
+ * @swagger
+ * /logout:
+ *   get:
+ *     summary: Logs out a user
+ *     description: Destroys the user's session and logs them out.
+ *     tags:
+ *       - Authentication
+ *     responses:
+ *       200:
+ *         description: Logout successful
+ *       500:
+ *         description: Internal server error
+ */
+
+//Session check
+/**
+ * @swagger
+ * /check-session:
+ *   get:
+ *     summary: Check user session
+ *     description: Returns user session details if logged in.
+ *     tags:
+ *       - Authentication
+ *     responses:
+ *       200:
+ *         description: User is currently logged in
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 loggedIn:
+ *                   type: boolean
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     username:
+ *                       type: string
+ *                     email:
+ *                       type: string
+ *       401:
+ *         description: User is not logged in
+ */
+
+//Post request to igbd
+/**
+ * @swagger
+ * /games/search:
+ *   post:
+ *     summary: Search for game details
+ *     description: Retrieves game details based on the game name. The response includes the first release date, name, rating, summary, and associated genres of the game.
+ *     tags:
+ *       - IGDB API
+ *     operationId: searchGames
+ *     parameters:
+ *       - in: header
+ *         name: Client-ID
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: Client ID to authenticate the API request
+ *       - in: header
+ *         name: API-Token
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: API-Token to authenticate the API request
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               search:
+ *                 type: string
+ *                 description: The name of the game to search for
+ *               fields:
+ *                 type: string
+ *                 default: 'first_release_date, name, rating, summary, genres'
+ *                 description: Fields to be included in the response
+ *           example:
+ *             search: "The Witcher 3"
+ *             fields: "first_release_date, name, rating, summary, genres"
+ *     responses:
+ *       200:
+ *         description: A list of games that match the search criteria
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   name:
+ *                     type: string
+ *                     description: Name of the game
+ *                   first_release_date:
+ *                     type: number
+ *                     format: unix time stamp
+ *                     description: The release date of the game
+ *                   rating:
+ *                     type: number
+ *                     format: float
+ *                     description: Rating of the game
+ *                   summary:
+ *                     type: string
+ *                     description: Summary of the game
+ *                   genres:
+ *                     type: array
+ *                     items:
+ *                       type: number
+ *                       description: List of genres associated with the game
+ *       400:
+ *         description: Bad request
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: No games found
+ */
+
+
+
 const express = require('express');
 const session = require('express-session');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const path = require('path');
+const swaggerjsdoc = require("swagger-jsdoc")
+const swaggerui = require("swagger-ui-express");
+const { title } = require('process');
 
 const app = express();
 const port = 3000;
@@ -68,6 +268,30 @@ app.get('/check-session', (req, res) => {
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
+
+const options = {
+    definition: {
+        openapi: "3.1.0",
+        info: {
+            title: "Flashback Documentation",
+            version: "1.0.0",
+            description: "A nostalgic game archive hosting only quality content",
+        },
+        servers: [
+            {
+                url: "http://localhost:3000/",
+            }
+        ]
+    },
+    apis: ['./server.js'],
+}
+
+const spacs = swaggerjsdoc(options)
+app.use(
+    "/api-docs",
+    swaggerui.serve,
+    swaggerui.setup(spacs)
+)
 
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
