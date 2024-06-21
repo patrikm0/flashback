@@ -1,9 +1,41 @@
 document.addEventListener('DOMContentLoaded', () => {
     console.log('Website ist geladen');
     console.log('Game data:', window.game); // This should log the game data
+    createGenreButtons();
     displayGames();
     checkSession();
 });
+
+function createGenreButtons() {
+    const gameData = window.game;
+    const genres = new Set();
+
+    // Extract unique genres from the game data
+    for (const key in gameData) {
+        if (gameData.hasOwnProperty(key)) {
+            const game = gameData[key];
+            game.Genres.forEach(genre => genres.add(genre));
+        }
+    }
+
+    const genreButtonsContainer = document.getElementById('genre-buttons-container');
+
+    // Create and append an "All" button to show all games
+    const allButton = document.createElement('button');
+    allButton.textContent = 'All';
+    allButton.classList.add('button');
+    allButton.addEventListener('click', () => displayGames('All'));
+    genreButtonsContainer.appendChild(allButton);
+
+    // Create and append buttons for each genre
+    genres.forEach(genre => {
+        const button = document.createElement('button');
+        button.textContent = genre;
+        button.classList.add('button');
+        button.addEventListener('click', () => displayGames(genre));
+        genreButtonsContainer.appendChild(button);
+    });
+}
 
 async function checkSession() {
     const response = await fetch('/check-session');
@@ -33,51 +65,62 @@ async function logout() {
     }
 }
 
+
+
 // Function to display games (already provided)
-function displayGames() {
+function displayGames(filterGenre = 'All') {
     const contentBox = document.querySelector('.content-box');
+    contentBox.innerHTML = ''; // Clear existing games
     const gameData = window.game; // Access the game data from games.js
 
     for (const key in gameData) {
         if (gameData.hasOwnProperty(key)) {
             const game = gameData[key];
+            
+            if (filterGenre === 'All' || game.Genres.includes(filterGenre)) {
+                // Create game card
+                const gameCard = document.createElement('div');
+                gameCard.classList.add('game-card');
+                gameCard.setAttribute('data-game', key); // Add a data attribute for navigation
 
-            // Create game card
-            const gameCard = document.createElement('div');
-            gameCard.classList.add('game-card');
-            gameCard.setAttribute('data-game', key); // Add a data attribute for navigation
+                // Add game poster
+                const gamePoster = document.createElement('img');
+                gamePoster.src = game.Poster;
+                gamePoster.alt = `${game.Title} Poster`;
+                gameCard.appendChild(gamePoster);
 
-            // Add game poster
-            const gamePoster = document.createElement('img');
-            gamePoster.src = game.Poster;
-            gamePoster.alt = `${game.Title} Poster`;
-            gameCard.appendChild(gamePoster);
+                // Add game title (hidden initially)
+                const gameTitle = document.createElement('h3');
+                gameTitle.textContent = game.Title;
+                gameTitle.classList.add('game-title');
+                gameCard.appendChild(gameTitle);
 
-            // Add game title (hidden initially)
-            const gameTitle = document.createElement('h3');
-            gameTitle.textContent = game.Title;
-            gameTitle.classList.add('game-title');
-            gameCard.appendChild(gameTitle);
+                // Add hover event to show title
+                gameCard.addEventListener('mouseover', () => {
+                    gameTitle.style.display = 'block';
+                });
 
-            // Add hover event to show title
-            gameCard.addEventListener('mouseover', () => {
-                gameTitle.style.display = 'block';
-            });
+                gameCard.addEventListener('mouseout', () => {
+                    gameTitle.style.display = 'none';
+                });
 
-            gameCard.addEventListener('mouseout', () => {
-                gameTitle.style.display = 'none';
-            });
+                // Add click event to navigate to game detail page
+                gameCard.addEventListener('click', () => {
+                    window.location.href = `game_detail.html?game=${key}`;
+                });
 
-            // Add click event to navigate to game detail page
-            gameCard.addEventListener('click', () => {
-                window.location.href = `game_detail.html?game=${key}`;
-            });
-
-            // Append game card to content box
-            contentBox.appendChild(gameCard);
+                // Append game card to content box
+                contentBox.appendChild(gameCard);
+            }
         }
     }
 }
+
+// Event listener for genre selection
+document.getElementById('Genres').addEventListener('change', (e) => {
+    const selectedGenre = e.target.value;
+    displayGames(selectedGenre);
+});
 
 // Event Listener for Sign Up Button
 document.getElementById('signup-button').onclick = function() {
