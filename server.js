@@ -200,6 +200,7 @@ const session = require('express-session');
 const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const path = require('path');
+const mysql = require('mysql2');
 const swaggerjsdoc = require("swagger-jsdoc")
 const swaggerui = require("swagger-ui-express");
 const { title } = require('process');
@@ -217,6 +218,27 @@ app.use(session({
     cookie: { secure: false } // Set to true if using HTTPS
 }));
 
+const db = mysql.createConnection({
+    host: 'localhost', //database host
+    user: 'root', //database user
+    password: 'JaliBrown18!', //database password
+    database: 'flashback_db' //database name
+}); 
+
+//database connection
+db.connect((err) => {
+    if (err) {
+        console.error('Error connecting to the database:', err); 
+        return; 
+    }
+    console.log('Connected to the MySQL database.'); 
+}); 
+
+app.use((req, res, next) => {
+    req.db = db; 
+    next(); 
+}); 
+
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -226,27 +248,42 @@ const users = {};
 // Signup route
 app.post('/signup', async (req, res) => {
     const { username, email, password } = req.body;
-    if (users[email]) {
-        return res.json({ success: false, message: 'Email already registered' });
-    }
-    const hashedPassword = await bcrypt.hash(password, 10);
-    users[email] = { username, email, password: hashedPassword };
-    res.json({ success: true });
+    req.db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
+        if (err) {
+            return res.json({ success: false, message: 'Database query error' });
+        }
+        if (results.length > 0) {
+            return res.json({ success: false, message: 'Email already registered' });
+        }
+        const hashedPassword = await bcrypt.hash(password, 10);
+        req.db.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', 
+            [username, email, hashedPassword], (err, results) => {
+            if (err) {
+                return res.json({ success: false, message: 'Database insert error' });
+            }
+            res.json({ success: true });
+        });
+    });
 });
 
 // Login route
 app.post('/login', async (req, res) => {
     const { email, password } = req.body;
-    const user = users[email];
-    if (!user) {
-        return res.json({ success: false, message: 'Invalid email or password' });
-    }
-    const match = await bcrypt.compare(password, user.password);
-    if (!match) {
-        return res.json({ success: false, message: 'Invalid email or password' });
-    }
-    req.session.user = { username: user.username, email: user.email };
-    res.json({ success: true });
+    req.db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
+        if (err) {
+            return res.json({ success: false, message: 'Database query error' });
+        }
+        if (results.length === 0) {
+            return res.json({ success: false, message: 'Invalid email or password' });
+        }
+        const user = results[0];
+        const match = await bcrypt.compare(password, user.password);
+        if (!match) {
+            return res.json({ success: false, message: 'Invalid email or password' });
+        }
+        req.session.user = { username: user.username, email: user.email };
+        res.json({ success: true });
+    });
 });
 
 // Logout route
