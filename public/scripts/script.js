@@ -4,6 +4,66 @@ document.addEventListener('DOMContentLoaded', () => {
     createGenreButtons();
     displayGames();
     checkSession();
+
+    // Event Listener for Sign Up Button
+    const signupButton = document.getElementById('signup-button');
+    if (signupButton) {
+        signupButton.onclick = function() {
+            document.getElementById('signup-modal').style.display = 'block';
+        }
+    } else {
+        console.error('Signup button not found');
+    }
+
+    // Event Listener for Login Button
+    const loginButton = document.getElementById('login-button');
+    if (loginButton) {
+        loginButton.onclick = function() {
+            document.getElementById('login-modal').style.display = 'block';
+        }
+    } else {
+        console.error('Login button not found');
+    }
+
+    // Event Listener for the Language Modal
+    const languageButton = document.getElementById('language-button');
+    if (languageButton) {
+        languageButton.onclick = function() {
+            document.getElementById('language-modal').style.display = 'block';
+        }
+    } else {
+        console.error('Language button not found');
+    }
+
+    // Event Listener for closing the Sign Up Modal
+    const closeSignup = document.getElementById('close-signup');
+    if (closeSignup) {
+        closeSignup.onclick = function() {
+            document.getElementById('signup-modal').style.display = 'none';
+        }
+    } else {
+        console.error('Close signup button not found');
+    }
+
+    // Event Listener for closing the Login Modal
+    const closeLogin = document.getElementById('close-login');
+    if (closeLogin) {
+        closeLogin.onclick = function() {
+            document.getElementById('login-modal').style.display = 'none';
+        }
+    } else {
+        console.error('Close login button not found');
+    }
+
+    // Event Listener for closing the Language Modal
+    const closeLanguage = document.getElementById('close-language');
+    if (closeLanguage) {
+        closeLanguage.onclick = function() {
+            document.getElementById('language-modal').style.display = 'none';
+        }
+    } else {
+        console.error('Close language button not found');
+    }
 });
 
 function createGenreButtons() {
@@ -121,36 +181,6 @@ document.getElementById('Genres').addEventListener('change', (e) => {
     const selectedGenre = e.target.value;
     displayGames(selectedGenre);
 });
-
-// Event Listener for Sign Up Button
-document.getElementById('signup-button').onclick = function() {
-    document.getElementById('signup-modal').style.display = 'block';
-}
-
-// Event Listener for Login Button
-document.getElementById('login-button').onclick = function() {
-    document.getElementById('login-modal').style.display = 'block';
-}
-
-// Event Listener for closing the Sign Up Modal
-document.getElementById('close-signup').onclick = function() {
-    document.getElementById('signup-modal').style.display = 'none';
-}
-
-// Event Listener for closing the Login Modal
-document.getElementById('close-login').onclick = function() {
-    document.getElementById('login-modal').style.display = 'none';
-}
-
-// Event Listener for the Language Modal
-document.getElementById('language-button').onclick = function() {
-    document.getElementById('language-modal').style.display = 'block';
-}
-
-// Event Listener for closing the Language Modal
-document.getElementById('close-language').onclick = function() {
-    document.getElementById('language-modal').style.display = 'none';
-}
 
 // Submit event for Signup
 document.getElementById('signup-form').addEventListener('submit', async (e) => {
