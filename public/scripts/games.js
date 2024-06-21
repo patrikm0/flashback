@@ -63,7 +63,7 @@ const game = {
     "Jetpack Joyride": {
         Title: "Jetpack Joyride",
         Released: "2011-09-01",
-        Genres: ["Koop", "Puzzle"],
+        Genres: ["Singleplayer", "Puzzle"],
         Publisher: "Halfbrick Studios",
         Plot: 	"Bullet-powered jetpacks! Giant mechanical dragons! Birds that shoot money! From the makers of Fruit Ninja comes this insane, high-flying endless runner that will keep you on the edge of your seat! It's time to join Barry Steakfries and equip cool jetpacks, suit up in stylish costumes, and ride crazy vehicles in his endless running quest to beat the scientists to the end of the lab.",
         Poster: "https://img.gamedistribution.com/c1d742d5feda42d981ff07eab0c809de-512x384.jpg",
@@ -73,7 +73,7 @@ const game = {
     "Slope": {
         Title: "Slope",
         Released: "2014-09-30",
-        Genres: ["Single Player", "Ball", "Jump and Run", "Obstacle"],
+        Genres: ["Singleplayer", "Ball", "Jump and Run"],
         Publisher: "Y8 Studios",
         Plot: 	"Slope is the ultimate running game that will put your skills to the test. Speed down on a randomized slope. The farther you go, the faster your ball travels. This game might look simple but playing this will give you extreme adrenaline rush. Just remember to avoid obstacles and those red blocks. Always be on track to get a high score and you might have your name on the leaderboard!",
         Poster: "https://play-lh.googleusercontent.com/FY9FXA14xl5ExZDiLqxEQRUFu8Lau0gM37zMRK5yFk_cadt_a3i5romTW-kbFlk-RQI=w526-h296-rw",
@@ -83,7 +83,7 @@ const game = {
     "Fruit Ninja": {
         Title: "Fruit Ninja",
         Released: "2010-04-21",
-        Genres: ["Action", "Simulation", "Sports"],
+        Genres: ["Singleplayer","Action", "Simulation", "Sports"],
         Publisher: "Halfbrick Studios",
         Plot: "Welcome to the dojo, ninja. Your objective: become a master of slicing fruit! What better way to do that than play Fruit Ninja, the original hit fruit-slicing mobile game? ? Unsheathe your blade and start the juicy carnage with the three classic game modes that billions of players have come to know and love.",
         Poster: "https://img.gamedistribution.com/a186dc9ac7f548f884db8ff54df6dd9f-512x384.jpg",
