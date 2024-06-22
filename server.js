@@ -201,9 +201,8 @@ const bcrypt = require('bcrypt');
 const bodyParser = require('body-parser');
 const path = require('path');
 const mysql = require('mysql2');
-const swaggerjsdoc = require("swagger-jsdoc")
-const swaggerui = require("swagger-ui-express");
-const { title } = require('process');
+const swaggerjsdoc = require('swagger-jsdoc');
+const swaggerui = require('swagger-ui-express');
 
 const app = express();
 const port = 3000;
@@ -221,29 +220,26 @@ app.use(session({
 const db = mysql.createConnection({
     host: 'localhost', //database host
     user: 'root', //database user
-    password: 'TNTwsuadas18', //database password
+    password: 'JaliBrown18!', //database password
     database: 'flashback_db' //database name
-}); 
+});
 
 //database connection
 db.connect((err) => {
     if (err) {
-        console.error('Error connecting to the database:', err); 
-        return; 
+        console.error('Error connecting to the database:', err);
+        return;
     }
-    console.log('Connected to the MySQL database.'); 
-}); 
+    console.log('Connected to the MySQL database.');
+});
 
 app.use((req, res, next) => {
-    req.db = db; 
-    next(); 
-}); 
+    req.db = db;
+    next();
+});
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
-
-// Dummy database for demonstration purposes
-const users = {};
 
 // Signup route
 app.post('/signup', async (req, res) => {
@@ -256,13 +252,13 @@ app.post('/signup', async (req, res) => {
             return res.json({ success: false, message: 'Email already registered' });
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        req.db.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)', 
+        req.db.query('INSERT INTO users (username, email, password) VALUES (?, ?, ?)',
             [username, email, hashedPassword], (err, results) => {
-            if (err) {
-                return res.json({ success: false, message: 'Database insert error' });
-            }
-            res.json({ success: true });
-        });
+                if (err) {
+                    return res.json({ success: false, message: 'Database insert error' });
+                }
+                res.json({ success: true });
+            });
     });
 });
 
@@ -308,15 +304,15 @@ app.get('/', (req, res) => {
 
 const options = {
     definition: {
-        openapi: "3.1.0",
+        openapi: '3.1.0',
         info: {
-            title: "Flashback Documentation",
-            version: "1.0.0",
-            description: "A nostalgic game archive hosting only quality content",
+            title: 'Flashback Documentation',
+            version: '1.0.0',
+            description: 'A nostalgic game archive hosting only quality content',
         },
         servers: [
             {
-                url: "http://localhost:3000/",
+                url: 'http://localhost:3000/',
             }
         ]
     },
@@ -325,7 +321,7 @@ const options = {
 
 const spacs = swaggerjsdoc(options)
 app.use(
-    "/api-docs",
+    '/api-docs',
     swaggerui.serve,
     swaggerui.setup(spacs)
 )

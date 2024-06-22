@@ -64,6 +64,74 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.error('Close language button not found');
     }
+
+    // Check if elements exist before adding event listeners
+    const genreDropdown = document.getElementById('Genres');
+    if (genreDropdown) {
+        genreDropdown.addEventListener('change', (e) => {
+            const selectedGenre = e.target.value;
+            displayGames(selectedGenre);
+        });
+    } else {
+        console.error('Genres dropdown not found');
+    }
+
+    const signupForm = document.getElementById('signup-form');
+    if (signupForm) {
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('signup-username').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+
+            const response = await fetch('/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, email, password })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                alert('Signup successful!');
+                document.getElementById('signup-modal').style.display = 'none';
+                checkSession(); // Check session after signup
+            } else {
+                alert('Signup failed: ' + data.message);
+            }
+        });
+    } else {
+        console.error('Signup form not found');
+    }
+
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                alert('Login successful!');
+                document.getElementById('login-modal').style.display = 'none';
+                checkSession(); // Check session after login
+            } else {
+                alert('Login failed: ' + data.message);
+            }
+        });
+    } else {
+        console.error('Login form not found');
+    }
 });
 
 function createGenreButtons() {
@@ -103,7 +171,7 @@ async function checkSession() {
     if (data.loggedIn) {
         document.getElementById('login-button').style.display = 'none';
         document.getElementById('signup-button').style.display = 'none';
-        
+
         const logoutButton = document.createElement('button');
         logoutButton.textContent = 'Logout';
         logoutButton.classList.add('button');
@@ -125,8 +193,6 @@ async function logout() {
     }
 }
 
-
-
 // Function to display games (already provided)
 function displayGames(filterGenre = 'All') {
     const contentBox = document.querySelector('.content-box');
@@ -136,7 +202,7 @@ function displayGames(filterGenre = 'All') {
     for (const key in gameData) {
         if (gameData.hasOwnProperty(key)) {
             const game = gameData[key];
-            
+
             if (filterGenre === 'All' || game.Genres.includes(filterGenre)) {
                 // Create game card
                 const gameCard = document.createElement('div');
@@ -175,58 +241,3 @@ function displayGames(filterGenre = 'All') {
         }
     }
 }
-
-// Event listener for genre selection
-document.getElementById('Genres').addEventListener('change', (e) => {
-    const selectedGenre = e.target.value;
-    displayGames(selectedGenre);
-});
-
-// Submit event for Signup
-document.getElementById('signup-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const username = e.target.username.value;
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-
-    const response = await fetch('/signup', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, email, password })
-    });
-
-    const data = await response.json();
-    if (data.success) {
-        alert('Signup successful!');
-        document.getElementById('signup-modal').style.display = 'none';
-        checkSession(); // Check session after signup
-    } else {
-        alert('Signup failed: ' + data.message);
-    }
-});
-
-// Submit event for Login
-document.getElementById('login-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-
-    const response = await fetch('/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-    });
-
-    const data = await response.json();
-    if (data.success) {
-        alert('Login successful!');
-        document.getElementById('login-modal').style.display = 'none';
-        checkSession(); // Check session after login
-    } else {
-        alert('Login failed: ' + data.message);
-    }
-});
