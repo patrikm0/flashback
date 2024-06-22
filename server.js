@@ -220,7 +220,7 @@ app.use(session({
 const db = mysql.createConnection({
     host: 'localhost', //database host
     user: 'root', //database user
-    password: 'Laiba2004!', //database password
+    password: '', //database password
     database: 'flashback_db' //database name
 });
 
