@@ -23,6 +23,39 @@
             <li><a href="https://www.fh-campuswien.ac.at/" target="_blank">Visit us at UAS Campus Vienna</a></li>
         </ul>
     </footer>
+    <script>
+        // Apply dark mode based on localStorage value
+        document.addEventListener('DOMContentLoaded', () => {
+            const darkMode = localStorage.getItem('darkMode');
+            if (darkMode === 'enabled') {
+                enableDarkMode();
+            } else {
+                disableDarkMode();
+            }
+        });
+
+        function enableDarkMode() {
+            const body = document.body;
+            body.classList.add('dark-mode');
+            const elements = document.querySelectorAll(
+                'header, .container, #search-input, .button, #language-button, .modal-content, .sideBox, .content-box, .game-card, footer, .game-detail-content-box, .welcome-box'
+            );
+            elements.forEach(element => {
+                element.classList.add('dark-mode');
+            });
+        }
+
+        function disableDarkMode() {
+            const body = document.body;
+            body.classList.remove('dark-mode');
+            const elements = document.querySelectorAll(
+                'header, .container, #search-input, .button, #language-button, .modal-content, .sideBox, .content-box, .game-card, footer, .game-detail-content-box, .welcome-box'
+            );
+            elements.forEach(element => {
+                element.classList.remove('dark-mode');
+            });
+        }
+    </script>
     <script src="scripts/games.js"></script>
     <script src="scripts/game_detail.js"></script>
 </body>
