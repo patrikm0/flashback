@@ -99,6 +99,24 @@ header {
     box-shadow: 0 0 0 2px #161054, 6px 6px 0 0 #161054;
 }
 
+#temperature-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 20px;
+}
+
+#temperature-display {
+    font-size: 10px;
+    margin-bottom: 5px;
+}
+
+#temperature-message {
+    font-size: 8px;
+    font-style: italic;
+}
+
+
 /* Modal Styles vvvvvv */
 .modal {
     display: none;

@@ -64,7 +64,46 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.error('Close language button not found');
     }
+
+    // Get current position and fetch weather data
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(position => {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            fetchWeatherData(latitude, longitude);
+        }, error => {
+            console.error('Error getting location:', error);
+            // Fallback coordinates (Vienna) in case of error
+            fetchWeatherData(48.2085, 16.3721);
+        });
+    } else {
+        console.error('Geolocation is not supported by this browser.');
+        // Fallback coordinates (Vienna)
+        fetchWeatherData(48.2085, 16.3721);
+    }
 });
+
+function fetchWeatherData(latitude, longitude) {
+    fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&current=temperature_2m,rain`)
+        .then(response => response.json())
+        .then(data => {
+            const temperature = data.current.temperature_2m;
+            const rain = data.current.rain;
+            const temperatureDisplay = document.getElementById('temperature-display');
+            temperatureDisplay.textContent = `Current Temperature: ${temperature} °C`;
+
+            const message = document.getElementById('temperature-message');
+
+            if (rain > 0) {
+                message.textContent = 'Its rainy. Maybe you shoud stay inside and play your favorite games :)';
+            } else if (temperature >= 25) {
+                message.textContent = 'Its pretty warm outside. Dont you wanna go outside instead?';
+            } else {
+                message.textContent = 'The perfect weather to stay inside and play your favorite games :)';
+            }
+        })
+        .catch(error => console.error('Error fetching temperature:', error));
+}
 
 function createGenreButtons() {
     const gameData = window.game;
