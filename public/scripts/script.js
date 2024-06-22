@@ -193,7 +193,7 @@ function fetchWeatherData(latitude, longitude) {
 
             if (rain > 0) {
                 message.textContent = 'Its rainy. Maybe you shoud stay inside and play your favorite games :)';
-            } else if (temperature >= 25) {
+            } else if (temperature >= 14) {
                 message.textContent = 'Its pretty warm outside. Dont you wanna go outside instead?';
             } else {
                 message.textContent = 'The perfect weather to stay inside and play your favorite games :)';
