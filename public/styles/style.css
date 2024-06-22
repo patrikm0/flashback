@@ -440,13 +440,15 @@ header.dark-mode {
     background-color: #121212;
 }
 
-.container.dark-mode,
+.container.dark-mode{
+    border-bottom-color: #ffd301;
+}
 #search-input.dark-mode, 
 .button.dark-mode, 
 .modal-content.dark-mode, 
 .sideBox.dark-mode{
     background-color: #121212;
-    box-shadow: 0 0 0 3px #161054, 6px 6px 0 0 #000000;
+    box-shadow: 0 0 0 3px #161054, 6px 6px 0 0 #561783 ;
 }
 .content-box.dark-mode, 
 .game-card.dark-mode, 
@@ -455,7 +457,7 @@ footer.dark-mode,
     background-color: #1e1e1e;
     color: #ffffff;
     border-color: #ac35ff; /* Lila Farbe beibehalten */
-    box-shadow: 0 0 0 2px #161054, 4px 4px 0 0 #000000; /* Lila Schatten beibehalten */
+    box-shadow: 0 0 0 2px #161054, 4px 4px 0 0 #561783 ; /* Lila Schatten beibehalten */
 }
 .game-detail-content-box.dark-mode {
     color: #000000; /* Schwarz für den Text innerhalb der Box */
@@ -465,12 +467,12 @@ footer.dark-mode,
     background-color: #ffd301; /* Gleiche Farbe wie im Light Mode */
     color: #000000;
     border-color: #ac35ff; /* Lila Farbe beibehalten */
-    box-shadow: 0 0 0 2px #161054, 4px 4px 0 0 #000000; /* Lila Schatten beibehalten */
+    box-shadow: 0 0 0 2px #161054, 4px 4px 0 0 #161054 ; /* Lila Schatten beibehalten */
 }
 
 .dark-mode .button:hover {
     background-color: #ffd301; /* Gleiche Farbe wie im Light Mode */
-    box-shadow: 0 0 0 2px #161054, 6px 6px 0 0 #000000; /* Lila Schatten beibehalten */
+    box-shadow: 0 0 0 2px #161054, 6px 6px 0 0 #161054 ; /* Lila Schatten beibehalten */
 }
 
 /* Additional Dark Mode Styles */
@@ -478,7 +480,7 @@ footer.dark-mode,
     background-color: #ffd301; 
     color: #000000;
     border-color: #ac35ff;
-    box-shadow: 0 0 0 2px #161054, 4px 4px 0 0 #000000;
+    box-shadow: 0 0 0 2px #161054, 4px 4px 0 0 #161054 ;
 }
 
 .dark-mode .game-title {
@@ -491,6 +493,6 @@ footer.dark-mode,
     background-color: #1e1e1e;
     color: #ffffff;
     border-color: #ac35ff;
-    box-shadow: 0 0 0 3px #ffffff, 6px 6px 0 0 #000000; 
+    box-shadow: 0 0 0 3px #ffffff, 6px 6px 0 0 #161054 ; 
 }
 
