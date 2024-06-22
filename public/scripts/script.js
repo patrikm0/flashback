@@ -145,7 +145,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Event Listener for dark mode
-    
     const themeToggle = document.getElementById('theme-toggle');
     const body = document.body;
 
@@ -162,10 +161,9 @@ document.addEventListener('DOMContentLoaded', () => {
             enableDarkMode();
         }
     });
-    
 });
 
-//Dark Mode Funktion
+// Dark Mode Funktionen
 function enableDarkMode() {
     const body = document.body;
     body.classList.add('dark-mode');
@@ -188,6 +186,16 @@ function disableDarkMode() {
         element.classList.remove('dark-mode');
     });
     localStorage.setItem('darkMode', 'disabled');
+}
+
+// Dark Mode anwenden auf neu erstellte Karten
+function applyDarkModeToNewElements() {
+    if (document.body.classList.contains('dark-mode')) {
+        const elements = document.querySelectorAll('.game-card');
+        elements.forEach(element => {
+            element.classList.add('dark-mode');
+        });
+    }
 }
 
 function createGenreButtons() {
@@ -302,6 +310,7 @@ function displayGames(filterGenre = 'All', searchQuery = '') {
             }
         }
     }
+
+    // Apply dark mode to newly created game cards
+    applyDarkModeToNewElements();
 }
-
-
