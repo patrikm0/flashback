@@ -65,6 +65,103 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Close language button not found');
     }
 
+    // Check if elements exist before adding event listeners
+    const genreDropdown = document.getElementById('Genres');
+    if (genreDropdown) {
+        genreDropdown.addEventListener('change', (e) => {
+            const selectedGenre = e.target.value;
+            displayGames(selectedGenre);
+        });
+    } else {
+        console.error('Genres dropdown not found');
+    }
+
+    const signupForm = document.getElementById('signup-form');
+    if (signupForm) {
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = document.getElementById('signup-username').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+
+            const response = await fetch('/signup', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, email, password })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                alert('Signup successful!');
+                document.getElementById('signup-modal').style.display = 'none';
+                checkSession(); // Check session after signup
+            } else {
+                alert('Signup failed: ' + data.message);
+            }
+        });
+    } else {
+        console.error('Signup form not found');
+    }
+
+    const loginForm = document.getElementById('login-form');
+    if (loginForm) {
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, password })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                alert('Login successful!');
+                document.getElementById('login-modal').style.display = 'none';
+                checkSession(); // Check session after login
+            } else {
+                alert('Login failed: ' + data.message);
+            }
+        });
+    } else {
+        console.error('Login form not found');
+    }
+
+    // Event listener for search input
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const searchQuery = e.target.value.toLowerCase();
+            displayGames('All', searchQuery);
+        });
+    } else {
+        console.error('Search input not found');
+    }
+
+    // Event Listener for dark mode
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Check local storage for dark mode setting
+    const darkMode = localStorage.getItem('darkMode');
+    if (darkMode === 'enabled') {
+        enableDarkMode();
+    }
+
+    themeToggle.addEventListener('click', () => {
+        if (body.classList.contains('dark-mode')) {
+            disableDarkMode();
+        } else {
+            enableDarkMode();
+        }
+    });
+
     // Get current position and fetch weather data
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(position => {
@@ -105,6 +202,41 @@ function fetchWeatherData(latitude, longitude) {
         .catch(error => console.error('Error fetching temperature:', error));
 }
 
+// Dark Mode Funktionen
+function enableDarkMode() {
+    const body = document.body;
+    body.classList.add('dark-mode');
+    const elements = document.querySelectorAll(
+        'header, .container, #search-input, .button, #language-button, .modal-content, .sideBox, .content-box, .game-card, footer, .game-detail-content-box, .welcome-box'
+    );
+    elements.forEach(element => {
+        element.classList.add('dark-mode');
+    });
+    localStorage.setItem('darkMode', 'enabled');
+}
+
+function disableDarkMode() {
+    const body = document.body;
+    body.classList.remove('dark-mode');
+    const elements = document.querySelectorAll(
+        'header, .container, #search-input, .button, #language-button, .modal-content, .sideBox, .content-box, .game-card, footer, .game-detail-content-box, .welcome-box'
+    );
+    elements.forEach(element => {
+        element.classList.remove('dark-mode');
+    });
+    localStorage.setItem('darkMode', 'disabled');
+}
+
+// Dark Mode anwenden auf neu erstellte Karten
+function applyDarkModeToNewElements() {
+    if (document.body.classList.contains('dark-mode')) {
+        const elements = document.querySelectorAll('.game-card');
+        elements.forEach(element => {
+            element.classList.add('dark-mode');
+        });
+    }
+}
+
 function createGenreButtons() {
     const gameData = window.game;
     const genres = new Set();
@@ -142,7 +274,7 @@ async function checkSession() {
     if (data.loggedIn) {
         document.getElementById('login-button').style.display = 'none';
         document.getElementById('signup-button').style.display = 'none';
-        
+
         const logoutButton = document.createElement('button');
         logoutButton.textContent = 'Logout';
         logoutButton.classList.add('button');
@@ -164,19 +296,23 @@ async function logout() {
     }
 }
 
-
-
-// Function to display games (already provided)
-function displayGames(filterGenre = 'All') {
+function displayGames(filterGenre = 'All', searchQuery = '') {
     const contentBox = document.querySelector('.content-box');
     contentBox.innerHTML = ''; // Clear existing games
     const gameData = window.game; // Access the game data from games.js
+    searchQuery = searchQuery.toLowerCase().trim(); // Normalize search query
 
     for (const key in gameData) {
         if (gameData.hasOwnProperty(key)) {
             const game = gameData[key];
-            
-            if (filterGenre === 'All' || game.Genres.includes(filterGenre)) {
+
+            // Check if the game matches the genre and search query
+            const matchesGenre = filterGenre === 'All' || game.Genres.includes(filterGenre);
+            const matchesSearch = !searchQuery ||
+                game.Title.toLowerCase().includes(searchQuery) ||
+                game.Plot.toLowerCase().includes(searchQuery);
+
+            if (matchesGenre && matchesSearch) {
                 // Create game card
                 const gameCard = document.createElement('div');
                 gameCard.classList.add('game-card');
@@ -213,59 +349,7 @@ function displayGames(filterGenre = 'All') {
             }
         }
     }
+
+    // Apply dark mode to newly created game cards
+    applyDarkModeToNewElements();
 }
-
-// Event listener for genre selection
-document.getElementById('Genres').addEventListener('change', (e) => {
-    const selectedGenre = e.target.value;
-    displayGames(selectedGenre);
-});
-
-// Submit event for Signup
-document.getElementById('signup-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const username = e.target.username.value;
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-
-    const response = await fetch('/signup', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, email, password })
-    });
-
-    const data = await response.json();
-    if (data.success) {
-        alert('Signup successful!');
-        document.getElementById('signup-modal').style.display = 'none';
-        checkSession(); // Check session after signup
-    } else {
-        alert('Signup failed: ' + data.message);
-    }
-});
-
-// Submit event for Login
-document.getElementById('login-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const email = e.target.email.value;
-    const password = e.target.password.value;
-
-    const response = await fetch('/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-    });
-
-    const data = await response.json();
-    if (data.success) {
-        alert('Login successful!');
-        document.getElementById('login-modal').style.display = 'none';
-        checkSession(); // Check session after login
-    } else {
-        alert('Login failed: ' + data.message);
-    }
-});

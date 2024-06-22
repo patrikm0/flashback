@@ -98,7 +98,39 @@ const game = {
         Plot: "In Zombotron 1, you play as a hero stranded on a zombie-infested planet. Explore underground tunnels, fight hordes of undead and monstrous creatures, and gather weapons and equipment to survive. Solve puzzles and navigate deadly traps to uncover the planet's secrets and find a way to escape.",
         Poster: "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/664830/header.jpg?t=1700323566",
         Iframe: "https://game3.glov3.me/uploads/game/html5/6020/"
-    }
+    },
+
+    "Extreme Pampalone": {
+        Title: "Extreme Pampalone",
+        Released: "2007-12-31",
+        Genres: ["Action", "Singleplayer", "Sports"],
+        Publisher: "SURE Men",
+        Plot: "Run away from the bulls or people who are chasing you! How long can you survive? This game was made for Sure Men Deodorant!You need to keep running and avoid any obstacle along the way. Timing your jump carefully and don't get caught by whoever is chasing you. Clear every stage around the world and have fun!",
+        Poster: "https://images.igdb.com/igdb/image/upload/t_720p/sc8lz5.jpg",
+        Iframe: "https://games.crazygames.com/de_DE/extreme-pamplona/index.html?v=1.288"
+    },
+
+    "Doodle Jump": {
+        Title: "Doodle Jump",
+        Released: "2009-04-06",
+        Genres: ["Singleplayer", "Simulation",],
+        Publisher: "Lima Sky",
+        Plot: "In Doodle Jump, the aim is to guide a four-legged animal called 'The Doodler' up a never-ending series of platforms without falling.",
+        Poster: "https://lh3.googleusercontent.com/u1Ggtgkx80taZd8S9_2AIQ2kNtI-VplR8Q8cxvAs_fQd0TAL8plG0INKv3p9wtcvkEr_K7NxXruaUCJJEPw9FD88wHo=s1280-w1280-h800",
+        Iframe: "https://wanted5games.com/games/html5/doodle-jump-new-en-s-iga-cloud/index.html?pub=451"
+    },
+
+   /* "Agar.io": {
+        Title: "Agar.io",
+        Released: "2015-04-28",
+        Genres: ["Koop", "Simulation", "Puzzle"],
+        Publisher: "Miniclip.com",
+        Plot: "Agar.io is a massively multiplayer online game where players control a cell in a colorful, grid-like environment. The main goal is to grow your cell by consuming smaller cells scattered throughout the map, while avoiding being eaten by larger cells controlled by other players.",
+        Poster: "https://images.crazygames.com/agario/20230719092731/agario-cover?auto=format%2Ccompress&q=45&cs=strip&ch=DPR&w=1200&h=630&fit=crop",
+        Iframe: "https://games.crazygames.com/de_DE/agario/index.html?v=1.288"
+    },*/
+    
+    
 };
 
 window.game = game;
