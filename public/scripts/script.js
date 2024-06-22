@@ -64,7 +64,63 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.error('Close language button not found');
     }
+
+    // Event listener for search input
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) {
+        searchInput.addEventListener('input', (e) => {
+            const searchQuery = e.target.value.toLowerCase();
+            displayGames('All', searchQuery);
+        });
+    } else {
+        console.error('Search input not found');
+    }
+
+    // Event Listener for dark mode
+    
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    // Check local storage for dark mode setting
+    const darkMode = localStorage.getItem('darkMode');
+    if (darkMode === 'enabled') {
+        enableDarkMode();
+    }
+
+    themeToggle.addEventListener('click', () => {
+        if (body.classList.contains('dark-mode')) {
+            disableDarkMode();
+        } else {
+            enableDarkMode();
+        }
+    });
+    
 });
+
+//Dark Mode Funktion
+function enableDarkMode() {
+    const body = document.body;
+    body.classList.add('dark-mode');
+    const elements = document.querySelectorAll(
+        'header, .container, #search-input, .button, #language-button, .modal-content, .sideBox, .content-box, .game-card, footer, .game-detail-content-box, .welcome-box'
+    );
+    elements.forEach(element => {
+        element.classList.add('dark-mode');
+    });
+    localStorage.setItem('darkMode', 'enabled');
+}
+
+function disableDarkMode() {
+    const body = document.body;
+    body.classList.remove('dark-mode');
+    const elements = document.querySelectorAll(
+        'header, .container, #search-input, .button, #language-button, .modal-content, .sideBox, .content-box, .game-card, footer, .game-detail-content-box, .welcome-box'
+    );
+    elements.forEach(element => {
+        element.classList.remove('dark-mode');
+    });
+    localStorage.setItem('darkMode', 'disabled');
+}
 
 function createGenreButtons() {
     const gameData = window.game;
@@ -125,19 +181,23 @@ async function logout() {
     }
 }
 
-
-
-// Function to display games (already provided)
-function displayGames(filterGenre = 'All') {
+function displayGames(filterGenre = 'All', searchQuery = '') {
     const contentBox = document.querySelector('.content-box');
     contentBox.innerHTML = ''; // Clear existing games
     const gameData = window.game; // Access the game data from games.js
+    searchQuery = searchQuery.toLowerCase().trim(); // Normalize search query
 
     for (const key in gameData) {
         if (gameData.hasOwnProperty(key)) {
             const game = gameData[key];
-            
-            if (filterGenre === 'All' || game.Genres.includes(filterGenre)) {
+
+            // Check if the game matches the genre and search query
+            const matchesGenre = filterGenre === 'All' || game.Genres.includes(filterGenre);
+            const matchesSearch = !searchQuery ||
+                game.Title.toLowerCase().includes(searchQuery) ||
+                game.Plot.toLowerCase().includes(searchQuery);
+
+            if (matchesGenre && matchesSearch) {
                 // Create game card
                 const gameCard = document.createElement('div');
                 gameCard.classList.add('game-card');
@@ -175,6 +235,7 @@ function displayGames(filterGenre = 'All') {
         }
     }
 }
+
 
 // Event listener for genre selection
 document.getElementById('Genres').addEventListener('change', (e) => {
