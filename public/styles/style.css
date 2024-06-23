@@ -269,7 +269,7 @@ main {
 
 .content-box {
     width: 100%;
-    height: auto; /* Change height to auto to adjust with content */
+    height: auto; /* Höhe auf auto setzen, um sich mit dem Inhalt anzupassen */
     box-sizing: border-box;
     padding: 20px;
     border: 6px solid #ac35ff;
@@ -277,9 +277,9 @@ main {
     font-family: 'Press Start 2P', Arial, sans-serif;
     box-shadow: 0 0 0 3px #161054, 6px 6px 0 0 #161054;
     display: flex;
-    flex-wrap: wrap; /* Allows the items to wrap to the next row */
-    justify-content: flex-start; /* Align items from left to right */
-    gap: 20px; /* Add space between the items */
+    flex-wrap: wrap; /* Ermöglicht das Umbruch auf die nächste Zeile */
+    justify-content: flex-start; /* Elemente von links nach rechts ausrichten */
+    gap: 20px; /* Abstand zwischen den Elementen hinzufügen */
 }
 
 footer {
@@ -318,17 +318,18 @@ footer ul li a:hover {
     background-color: #e7e7e7;
     box-shadow: 0 0 0 3px #161054, 6px 6px 0 0 #161054;
     margin-bottom: 20px;
-    padding: 10px; /* Reduced padding */
+    padding: 10px;
     font-family: 'Press Start 2P', Arial, sans-serif;
     text-align: center;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: calc(25% - 20px); /* Each game card will take up 25% of the container width minus the gap */
-    height: 200px; /* Set a fixed height */
-    box-sizing: border-box; /* Ensures padding and border are included in the width */
+    flex: 1 1 calc(25% - 20px); /* Flex-Verhalten und Breite definieren */
+    height: auto; /* Höhe auf auto setzen */
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: calc(25% - 20px); /* Maximalbreite setzen */
 }
 
 .game-card:hover {
@@ -338,9 +339,10 @@ footer ul li a:hover {
 
 .game-card img {
     max-width: 100%;
-    height: auto;
+    height: auto; /* Sicherstellen, dass die Höhe automatisch angepasst wird */
     display: block;
     margin: 0 auto 10px;
+    object-fit: contain; /* Bild innerhalb des Containers proportional halten */
 }
 
 .game-title {
