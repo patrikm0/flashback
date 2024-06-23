@@ -152,13 +152,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const darkMode = localStorage.getItem('darkMode');
     if (darkMode === 'enabled') {
         enableDarkMode();
+        themeToggle.textContent = 'Light Mode';
+    } else {
+        themeToggle.textContent = 'Dark Mode';
     }
 
     themeToggle.addEventListener('click', () => {
         if (body.classList.contains('dark-mode')) {
             disableDarkMode();
+            themeToggle.textContent = 'Dark Mode';
         } else {
             enableDarkMode();
+            themeToggle.textContent = 'Light Mode';
         }
     });
 
