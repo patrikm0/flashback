@@ -289,6 +289,10 @@ async function checkSession() {
         const welcomeMessage = document.createElement('span');
         welcomeMessage.textContent = `Welcome, ${data.user.username}`;
         welcomeMessage.classList.add('welcome-box');
+        welcomeMessage.style.cursor = 'pointer'; // Make it clickable
+        welcomeMessage.addEventListener('click', () => {
+            window.location.href = 'profile.html';
+        });
         document.getElementById('searchAndButtons').appendChild(welcomeMessage);
     }
 }

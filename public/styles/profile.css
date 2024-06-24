@@ -1,0 +1,78 @@
+body {
+    font-family: 'Press Start 2P', Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+header {
+    margin-bottom: 20px;
+    padding: 20px; 
+}
+
+main {
+    background: #e7e7e7;
+    padding: 20px;
+    border: 6px solid #ac35ff;
+    box-shadow: 0 0 0 3px #161054, 6px 6px 0 0 #161054;
+    max-width: 400px;
+    width: 100%;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+input[type="email"] {
+    font-size: 0.8em;
+    width: 90%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 4px solid #ac35ff;
+    background-color: #ffd301; 
+    font-family: 'Press Start 2P', Arial, sans-serif;
+    box-shadow: 0 0 0 2px #161054, 4px 4px 0 0 #161054;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #ffd301; 
+    border: 4px solid #ac35ff;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+    font-family: 'Press Start 2P', Arial, sans-serif;
+    box-shadow: 0 0 0 2px #161054, 4px 4px 0 0 #161054;
+}
+
+#delete-account{
+    background-color: red; 
+}
+
+#delete-account:hover {
+    background-color: rgb(209, 24, 24); 
+}
+
+#update-email-button{
+    background-color: #15ff00; 
+}
+
+#update-email-button:hover {
+    background-color: #29ce1a; 
+}
+
+#back-to-home:hover {
+    background-color: rgb(207, 153, 14); 
+}

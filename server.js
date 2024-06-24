@@ -193,6 +193,55 @@
  *         description: No games found
  */
 
+// Update email
+/**
+ * @swagger
+ * /update-email:
+ *   put:
+ *     summary: Update user email
+ *     description: Allows a logged-in user to update their email address.
+ *     tags:
+ *       - User Management
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               newEmail:
+ *                 type: string
+ *                 format: email
+ *                 description: The new email address to be set
+ *     responses:
+ *       200:
+ *         description: Email updated successfully
+ *       400:
+ *         description: Bad request parameters
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Database update error
+ */
+
+// Delete account
+/**
+ * @swagger
+ * /delete-account:
+ *   delete:
+ *     summary: Delete user account
+ *     description: Allows a logged-in user to delete their account.
+ *     tags:
+ *       - User Management
+ *     responses:
+ *       200:
+ *         description: Account deleted successfully
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Database delete error
+ */
+
 
 
 const express = require('express');
@@ -218,13 +267,13 @@ app.use(session({
 }));
 
 const db = mysql.createConnection({
-    host: 'localhost', //database host
-    user: 'root', //database user
-    password: 'JaliBrown18!', //database password
-    database: 'flashback_db' //database name
+    host: 'localhost', // database host
+    user: 'root', // database user
+    password: 'JaliBrown18!', // database password
+    database: 'flashback_db' // database name
 });
 
-//database connection
+// database connection
 db.connect((err) => {
     if (err) {
         console.error('Error connecting to the database:', err);
@@ -240,6 +289,12 @@ app.use((req, res, next) => {
 
 // Serve static files from the public directory
 app.use(express.static(path.join(__dirname, 'public')));
+
+// Debug logging middleware
+app.use((req, res, next) => {
+    console.log(`${req.method} ${req.url}`);
+    next();
+});
 
 // Signup route
 app.post('/signup', async (req, res) => {
@@ -282,10 +337,60 @@ app.post('/login', async (req, res) => {
     });
 });
 
+// Delete account route
+app.delete('/delete-account', (req, res) => {
+    console.log('DELETE /delete-account route hit');
+    if (!req.session.user || !req.session.user.email) {
+        console.log('Unauthorized request to delete account');
+        return res.status(401).json({ success: false, message: 'Unauthorized' });
+    }
+
+    const userEmail = req.session.user.email;
+    console.log(`Deleting account for email: ${userEmail}`);
+
+    req.db.query('DELETE FROM users WHERE email = ?', [userEmail], (err, results) => {
+        if (err) {
+            console.error('Database delete error:', err);
+            return res.status(500).json({ success: false, message: 'Database delete error' });
+        }
+        console.log(`Account for ${userEmail} deleted successfully from database`);
+
+        req.session.destroy((err) => {
+            if (err) {
+                console.error('Failed to destroy session:', err);
+                return res.status(500).json({ success: false, message: 'Failed to destroy session' });
+            }
+            res.clearCookie('connect.sid', { path: '/' });
+            console.log(`Session destroyed and cookie cleared for ${userEmail}`);
+            return res.json({ success: true });
+        });
+    });
+});
+
+// Update email route
+app.put('/update-email', (req, res) => {
+    const newEmail = req.body.newEmail;
+    const userEmail = req.session.user.email;
+
+    req.db.query('UPDATE users SET email = ? WHERE email = ?', [newEmail, userEmail], (err, results) => {
+        if (err) {
+            console.error('Error updating email:', err);
+            return res.json({ success: false, message: 'Database update error' });
+        }
+        req.session.user.email = newEmail; // Update the session email
+        res.json({ success: true });
+    });
+});
+
 // Logout route
 app.get('/logout', (req, res) => {
-    req.session.destroy();
-    res.json({ success: true });
+    req.session.destroy((err) => {
+        if (err) {
+            return res.json({ success: false, message: 'Failed to destroy session' });
+        }
+        res.clearCookie('connect.sid', { path: '/' });
+        res.json({ success: true });
+    });
 });
 
 // Check session route
@@ -329,3 +434,4 @@ app.use(
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
+
