@@ -23,5 +23,38 @@
         <button id="back-to-home" class="button">Back to Home</button>
     </main>
     <script src="scripts/profile.js"></script>
+    <script>
+        // Apply dark mode based on localStorage value
+        document.addEventListener('DOMContentLoaded', () => {
+            const darkMode = localStorage.getItem('darkMode');
+            if (darkMode === 'enabled') {
+                enableDarkMode();
+            } else {
+                disableDarkMode();
+            }
+        });
+
+        function enableDarkMode() {
+            const body = document.body;
+            body.classList.add('dark-mode');
+            const elements = document.querySelectorAll(
+                'header, .container, #search-input, .button, #language-button, .modal-content, .sideBox, .content-box, .game-card, footer, .game-detail-content-box, .welcome-box'
+            );
+            elements.forEach(element => {
+                element.classList.add('dark-mode');
+            });
+        }
+
+        function disableDarkMode() {
+            const body = document.body;
+            body.classList.remove('dark-mode');
+            const elements = document.querySelectorAll(
+                'header, .container, #search-input, .button, #language-button, .modal-content, .sideBox, .content-box, .game-card, footer, .game-detail-content-box, .welcome-box'
+            );
+            elements.forEach(element => {
+                element.classList.remove('dark-mode');
+            });
+        }
+    </script>
 </body>
 </html>

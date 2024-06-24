@@ -25,16 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Login button not found');
     }
 
-    // Event Listener for the Language Modal
-    const languageButton = document.getElementById('language-button');
-    if (languageButton) {
-        languageButton.onclick = function() {
-            document.getElementById('language-modal').style.display = 'block';
-        }
-    } else {
-        console.error('Language button not found');
-    }
-
     // Event Listener for closing the Sign Up Modal
     const closeSignup = document.getElementById('close-signup');
     if (closeSignup) {
@@ -55,16 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         console.error('Close login button not found');
     }
 
-    // Event Listener for closing the Language Modal
-    const closeLanguage = document.getElementById('close-language');
-    if (closeLanguage) {
-        closeLanguage.onclick = function() {
-            document.getElementById('language-modal').style.display = 'none';
-        }
-    } else {
-        console.error('Close language button not found');
-    }
-
+    
     // Check if elements exist before adding event listeners
     const genreDropdown = document.getElementById('Genres');
     if (genreDropdown) {

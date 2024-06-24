@@ -57,6 +57,12 @@ button {
     box-shadow: 0 0 0 2px #161054, 4px 4px 0 0 #161054;
 }
 
+.button:hover {
+    transform: scale(1.08);
+    cursor: grab;
+    box-shadow: 0 0 0 2px #161054, 6px 6px 0 0 #161054;
+}
+
 #delete-account{
     background-color: red; 
 }
@@ -75,4 +81,77 @@ button {
 
 #back-to-home:hover {
     background-color: rgb(207, 153, 14); 
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #e0e0e0;
+}
+
+header.dark-mode {
+    background-color: #121212;
+}
+
+.container.dark-mode{
+    border-bottom-color: #ffd301;
+}
+.button.dark-mode,  
+footer.dark-mode,
+.game-detail-content-box.dark-mode {
+    color: #000000; /* Schwarz für den Text innerhalb der Box */
+}
+
+.dark-mode .button {
+    background-color: #ffd301; /* Gleiche Farbe wie im Light Mode */
+    color: #000000;
+    border-color: #ac35ff; /* Lila Farbe beibehalten */
+    box-shadow: 0 0 0 2px #161054, 4px 4px 0 0 #161054 ; /* Lila Schatten beibehalten */
+}
+
+.dark-mode .button:hover {
+    background-color: #ffd301; /* Gleiche Farbe wie im Light Mode */
+    box-shadow: 0 0 0 2px #161054, 6px 6px 0 0 #161054 ; /* Lila Schatten beibehalten */
+}
+
+.dark-mode .form-group {
+    color :#000000
+}
+
+
+@media (max-width: 600px) {
+    body {
+        padding: 10px;
+        height: auto;
+        flex-direction: column;
+    }
+
+    header {
+        order: -1; /* Ensure header is above main content */
+        margin-bottom: 10px; /* Adjust spacing as needed */
+    }
+
+    main {
+        width: auto;
+        padding: 15px;
+        border-width: 4px;
+    }
+
+    /*input[type="email"] {
+        font-size: 0.7em;
+        padding: 8px;
+        margin-top: 5px;
+        border-width: 3px;
+    }*/
+
+    button {
+        padding: 8px;
+        font-size: 0.8em;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 1024px) {
+    main {
+        max-width: auto;
+    }
 }
