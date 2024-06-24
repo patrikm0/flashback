@@ -269,7 +269,7 @@ app.use(session({
 const db = mysql.createConnection({
     host: 'localhost', // database host
     user: 'root', // database user
-    password: 'JaliBrown18!', // database password
+    password: 'TNTwsuadas18', // database password
     database: 'flashback_db' // database name
 });
 
@@ -296,10 +296,26 @@ app.use((req, res, next) => {
     next();
 });
 
+let fetch;
+(async () => {
+    fetch = (await import('node-fetch')).default;
+})();
+
 // Signup route
 app.post('/signup', async (req, res) => {
-    const { username, email, password } = req.body;
-    req.db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
+    const { username, email, password, recaptchaToken } = req.body;
+    const secretKey = '6Le7IAAqAAAAACl2g9o3pMcNeV1DCrBx-anKBYy1';
+
+    // Verify reCAPTCHA token
+    const recaptchaUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`;
+    const recaptchaResponse = await fetch(recaptchaUrl, { method: 'POST' });
+    const recaptchaResult = await recaptchaResponse.json();
+
+    if (!recaptchaResult.success) {
+        return res.status(400).json({ success: false, message: 'reCAPTCHA verification failed' });
+    }
+    else{
+        req.db.query('SELECT * FROM users WHERE email = ?', [email], async (err, results) => {
         if (err) {
             return res.json({ success: false, message: 'Database query error' });
         }
@@ -315,6 +331,8 @@ app.post('/signup', async (req, res) => {
                 res.json({ success: true });
             });
     });
+    }
+    
 });
 
 // Login route
@@ -339,29 +357,22 @@ app.post('/login', async (req, res) => {
 
 // Delete account route
 app.delete('/delete-account', (req, res) => {
-    console.log('DELETE /delete-account route hit');
     if (!req.session.user || !req.session.user.email) {
-        console.log('Unauthorized request to delete account');
         return res.status(401).json({ success: false, message: 'Unauthorized' });
     }
 
     const userEmail = req.session.user.email;
-    console.log(`Deleting account for email: ${userEmail}`);
 
     req.db.query('DELETE FROM users WHERE email = ?', [userEmail], (err, results) => {
         if (err) {
-            console.error('Database delete error:', err);
             return res.status(500).json({ success: false, message: 'Database delete error' });
         }
-        console.log(`Account for ${userEmail} deleted successfully from database`);
 
         req.session.destroy((err) => {
             if (err) {
-                console.error('Failed to destroy session:', err);
                 return res.status(500).json({ success: false, message: 'Failed to destroy session' });
             }
             res.clearCookie('connect.sid', { path: '/' });
-            console.log(`Session destroyed and cookie cleared for ${userEmail}`);
             return res.json({ success: true });
         });
     });
@@ -374,7 +385,6 @@ app.put('/update-email', (req, res) => {
 
     req.db.query('UPDATE users SET email = ? WHERE email = ?', [newEmail, userEmail], (err, results) => {
         if (err) {
-            console.error('Error updating email:', err);
             return res.json({ success: false, message: 'Database update error' });
         }
         req.session.user.email = newEmail; // Update the session email
@@ -434,4 +444,3 @@ app.use(
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
-
