@@ -80,25 +80,6 @@ header {
     box-shadow: 0 0 0 2px #161054, 6px 6px 0 0 #161054;
 }
 
-#language-button {
-    padding: 10px 15px;
-    font-size: 1em; /* Relative Schriftgröße */
-    cursor: pointer;
-    margin-left: 20px;
-    border-radius: 0; 
-    border: 4px solid #ac35ff;
-    background-color: #ffd301; 
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    font-family: 'Press Start 2P', Arial, sans-serif;
-    box-shadow: 0 0 0 2px #161054, 4px 4px 0 0 #161054;
-}
-
-#language-button:hover {
-    transform: scale(1.1);
-    cursor: grab;
-    box-shadow: 0 0 0 2px #161054, 6px 6px 0 0 #161054;
-}
-
 #temperature-container {
     display: flex;
     flex-direction: column;
@@ -199,29 +180,6 @@ header {
     box-shadow: 0 0 0 2px #161054, 6px 6px 0 0 #161054;
 }
 
-/* Modal Styles ^^^^^^ */
-
-.language-option {
-    display: block;
-    width: 100%;
-    padding: 10px 15px;
-    margin: 15px 0;
-    font-size: 10px;
-    cursor: pointer;
-    border-radius: 0; 
-    border: 4px solid #ac35ff;
-    background-color: #ffd301; 
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    font-family: 'Press Start 2P', Arial, sans-serif;
-    box-shadow: 0 0 0 2px #161054, 4px 4px 0 0 #161054;
-}
-
-.language-option:hover {
-    transform: scale(1.03);
-    background-color: #e6b800;
-    box-shadow: 0 0 0 2px #161054, 6px 6px 0 0 #161054;
-}
-
 
 nav {
     grid-area: nav;
@@ -269,7 +227,7 @@ main {
 
 .content-box {
     width: 100%;
-    height: auto; /* Change height to auto to adjust with content */
+    height: auto; /* Höhe auf auto setzen, um sich mit dem Inhalt anzupassen */
     box-sizing: border-box;
     padding: 20px;
     border: 6px solid #ac35ff;
@@ -277,9 +235,9 @@ main {
     font-family: 'Press Start 2P', Arial, sans-serif;
     box-shadow: 0 0 0 3px #161054, 6px 6px 0 0 #161054;
     display: flex;
-    flex-wrap: wrap; /* Allows the items to wrap to the next row */
-    justify-content: flex-start; /* Align items from left to right */
-    gap: 20px; /* Add space between the items */
+    flex-wrap: wrap; /* Ermöglicht das Umbruch auf die nächste Zeile */
+    justify-content: flex-start; /* Elemente von links nach rechts ausrichten */
+    gap: 20px; /* Abstand zwischen den Elementen hinzufügen */
 }
 
 footer {
@@ -318,17 +276,18 @@ footer ul li a:hover {
     background-color: #e7e7e7;
     box-shadow: 0 0 0 3px #161054, 6px 6px 0 0 #161054;
     margin-bottom: 20px;
-    padding: 10px; /* Reduced padding */
+    padding: 10px;
     font-family: 'Press Start 2P', Arial, sans-serif;
     text-align: center;
     cursor: pointer;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    width: calc(25% - 20px); /* Each game card will take up 25% of the container width minus the gap */
-    height: 200px; /* Set a fixed height */
-    box-sizing: border-box; /* Ensures padding and border are included in the width */
+    flex: 1 1 calc(25% - 20px); /* Flex-Verhalten und Breite definieren */
+    height: auto; /* Höhe auf auto setzen */
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     align-items: center;
+    max-width: calc(25% - 20px); /* Maximalbreite setzen */
 }
 
 .game-card:hover {
@@ -338,9 +297,10 @@ footer ul li a:hover {
 
 .game-card img {
     max-width: 100%;
-    height: auto;
+    height: auto; /* Sicherstellen, dass die Höhe automatisch angepasst wird */
     display: block;
     margin: 0 auto 10px;
+    object-fit: contain; /* Bild innerhalb des Containers proportional halten */
 }
 
 .game-title {
@@ -417,7 +377,7 @@ footer ul li a:hover {
 
 
 /* Media Queries */
-@media (max-width: 1024px) {
+@media (max-width: 1297px) {
     body {
         grid-template-columns: 1fr;
         grid-template-areas: 
@@ -446,6 +406,38 @@ footer ul li a:hover {
         margin-left: 0;
     }
 }
+
+@media (max-width: 1000px) {
+    .game-card {
+        flex: 1 1 calc(50% - 20px); /* Zwei Karten nebeneinander */
+        max-width: calc(50% - 20px);
+    }
+
+    .content-box {
+        justify-content: center; /* Center items when space is limited */
+    }
+
+    .sideBox {
+        margin-left: 0; /* Remove left margin for smaller screens */
+    }
+
+    nav {
+        margin-left: 0; /* Remove left margin for smaller screens */
+    }
+}
+
+@media (max-width: 600px) {
+    .game-card {
+        flex: 1 1 100%; /* Eine Karte pro Zeile */
+        max-width: 100%;
+    }
+
+    .sideBox {
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+}
+
+
 
 
 /* Dark Mode Styles */
