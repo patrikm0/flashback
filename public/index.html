@@ -6,6 +6,7 @@
     <title>Meine Website</title>
     <link rel="stylesheet" href="styles/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://www.google.com/recaptcha/enterprise.js" async defer></script>
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
@@ -28,7 +29,7 @@
 
     <nav class="nav">
         <div class="sideBox">
-            <label for="Genres">Genres:</label>
+            <span>Genres: </span>
             <div id="genre-buttons-container"></div>
         </div> 
     </nav>
@@ -52,7 +53,7 @@
     <div class="modal-content">
         <span class="close" id="close-signup">&times;</span>
         <h2>Sign Up</h2>
-        <form id="signup-form">
+        <form id="signup-form" method="POST">
             <div class="form-group">
                 <label for="signup-username">Username:</label>
                 <input type="text" id="signup-username" name="username" required>
@@ -66,9 +67,9 @@
                 <input type="password" id="signup-password" name="password" required>
             </div>
             <!-- reCAPTCHA Widget -->
-            <div class="g-recaptcha" data-sitekey="6Le7IAAqAAAAAMcUF5htXwPho0t175aw0GQMG3cJ"></div>
+            <div class="g-recaptcha" data-sitekey="6Le9WAEqAAAAAEiRa1GP6FMvEteZNhWZv4eWWR0Z" data-action="LOGIN"></div>
             <div class="form-group button-container">
-                <button type="submit" class="button">Sign Up</button>
+                <button type="submit" class="button" value="Submit">Sign Up</button>
             </div>
         </form>
     </div>

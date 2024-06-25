@@ -514,3 +514,6 @@ footer.dark-mode,
     box-shadow: 0 0 0 3px #ffffff, 6px 6px 0 0 #161054 ; 
 }
 
+.dark-mode #joke-container{
+    color: white;
+}

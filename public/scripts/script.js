@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         console.error('Genres dropdown not found');
     }
-
+    
     const signupForm = document.getElementById('signup-form');
     if (signupForm) {
         signupForm.addEventListener('submit', async (e) => {
@@ -65,13 +65,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const username = document.getElementById('signup-username').value;
             const email = document.getElementById('signup-email').value;
             const password = document.getElementById('signup-password').value;
+            const recaptchaToken = grecaptcha.getResponse();
 
             const response = await fetch('/signup', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
                 },
-                body: JSON.stringify({ username, email, password })
+                body: JSON.stringify({ username, email, password, recaptchaToken})
             });
 
             const data = await response.json();
@@ -311,6 +313,7 @@ function displayGames(filterGenre = 'All', searchQuery = '') {
 
                 // Add game poster
                 const gamePoster = document.createElement('img');
+                gamePoster.className = "poster";
                 gamePoster.src = game.Poster;
                 gamePoster.alt = `${game.Title} Poster`;
                 gameCard.appendChild(gamePoster);

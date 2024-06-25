@@ -30,6 +30,7 @@ main {
     padding: 20px;
     box-sizing: border-box;
     overflow-y: auto;
+    line-height: 2;
 }
 
 /* Ensure the content box can handle the iframe size */

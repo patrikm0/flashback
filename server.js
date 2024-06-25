@@ -269,7 +269,7 @@ app.use(session({
 const db = mysql.createConnection({
     host: 'localhost', // database host
     user: 'root', // database user
-    password: '', // database password
+    password: 'JaliBrown18!', // database password
     database: 'flashback_db' // database name
 });
 
@@ -304,7 +304,7 @@ let fetch;
 // Signup route
 app.post('/signup', async (req, res) => {
     const { username, email, password, recaptchaToken } = req.body;
-    const secretKey = '6Le7IAAqAAAAACl2g9o3pMcNeV1DCrBx-anKBYy1';
+    const secretKey = '6Le9WAEqAAAAAJ4NYvCAFrcVsMkRYt3vNo4gbzPX';
 
     // Verify reCAPTCHA token
     const recaptchaUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${secretKey}&response=${recaptchaToken}`;
