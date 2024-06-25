@@ -4,6 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     createGenreButtons();
     displayGames();
     checkSession();
+    fetchRandomJoke();
 
     // Event Listener for Sign Up Button
     const signupButton = document.getElementById('signup-button');
@@ -342,4 +343,30 @@ function displayGames(filterGenre = 'All', searchQuery = '') {
 
     // Apply dark mode to newly created game cards
     applyDarkModeToNewElements();
+}
+
+
+function fetchRandomJoke() {
+    fetch('https://official-joke-api.appspot.com/random_joke')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Random Joke:', data);
+            displayJoke(data);
+        })
+        .catch(error => {
+            console.error('Error fetching joke:', error);
+            const jokeContainer = document.getElementById('joke-container');
+            jokeContainer.textContent = 'Failed to load joke. Please try again later.';
+        });
+}
+
+function displayJoke(joke) {
+    const jokeContainer = document.getElementById('joke-container');
+    jokeContainer.textContent = `${joke.setup} - ${joke.punchline}`;
+    jokeContainer.classList.add('joke-style'); // Add a class for styling
 }

@@ -97,6 +97,14 @@ header {
     font-style: italic;
 }
 
+#joke-container {
+    text-align: left;
+    font-size: 10px; /* Adjust as needed */
+    color: #333;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    line-height: 2;
+}
 
 /* Modal Styles vvvvvv */
 .modal {

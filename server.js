@@ -269,7 +269,7 @@ app.use(session({
 const db = mysql.createConnection({
     host: 'localhost', // database host
     user: 'root', // database user
-    password: 'TNTwsuadas18', // database password
+    password: '', // database password
     database: 'flashback_db' // database name
 });
 
@@ -411,6 +411,7 @@ app.get('/check-session', (req, res) => {
         res.json({ loggedIn: false });
     }
 });
+
 
 // Serve index.html for the root URL
 app.get('/', (req, res) => {
