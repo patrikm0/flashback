@@ -30,6 +30,11 @@ function displayGameDetails(game) {
     gamePlot.textContent = game.Plot;  
     gameDetailContent.appendChild(gamePlot); 
 
+    // Add game release date
+    const gameReleased = document.createElement('p');
+    gameReleased.textContent = `Release Date: ${game.Released}`;
+    gameDetailContent.appendChild(gameReleased);
+
     // Add "Back to Home" button
     const backButton = document.createElement('button');
     backButton.textContent = 'Back to Home';
