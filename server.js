@@ -1,10 +1,9 @@
-//Login
 /**
  * @swagger
  * /signup:
  *   post:
  *     summary: Register a new user
- *     description: Registers a new user and stores their information securely.
+ *     description: Registers a new user and stores their information securely. Verifies the reCAPTCHA token before registration.
  *     tags:
  *       - Authentication
  *     requestBody:
@@ -17,6 +16,7 @@
  *               - username
  *               - email
  *               - password
+ *               - recaptchaToken
  *             properties:
  *               username:
  *                 type: string
@@ -29,14 +29,43 @@
  *                 type: string
  *                 format: password
  *                 description: User's password
+ *               recaptchaToken:
+ *                 type: string
+ *                 description: reCAPTCHA token for verification
  *     responses:
  *       200:
  *         description: User registered successfully
  *       400:
- *         description: Email already registered or bad request parameters
+ *         description: reCAPTCHA verification failed or bad request parameters
  */
 
-//Signup
+/**
+ * @swagger
+ * /verify-recaptcha:
+ *   post:
+ *     summary: Verify reCAPTCHA token
+ *     description: Verifies a reCAPTCHA token.
+ *     tags:
+ *       - reCAPTCHA
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - recaptchaToken
+ *             properties:
+ *               recaptchaToken:
+ *                 type: string
+ *                 description: reCAPTCHA token to be verified
+ *     responses:
+ *       200:
+ *         description: reCAPTCHA verified successfully
+ *       400:
+ *         description: reCAPTCHA verification failed
+ */
+
 /**
  * @swagger
  * /login:
@@ -70,7 +99,6 @@
  *         description: Unauthorized, invalid email or password
  */
 
-//Logout
 /**
  * @swagger
  * /logout:
@@ -86,7 +114,6 @@
  *         description: Internal server error
  */
 
-//Session check
 /**
  * @swagger
  * /check-session:
@@ -116,7 +143,6 @@
  *         description: User is not logged in
  */
 
-//Post request to igbd
 /**
  * @swagger
  * /games/search:
@@ -193,7 +219,6 @@
  *         description: No games found
  */
 
-// Update email
 /**
  * @swagger
  * /update-email:
@@ -224,7 +249,6 @@
  *         description: Database update error
  */
 
-// Delete account
 /**
  * @swagger
  * /delete-account:
@@ -242,6 +266,81 @@
  *         description: Database delete error
  */
 
+/**
+ * @swagger
+ * /weather:
+ *   get:
+ *     summary: Get weather data
+ *     description: Retrieves the current temperature and rain information for a given location based on latitude and longitude.
+ *     tags:
+ *       - Weather API
+ *     parameters:
+ *       - in: query
+ *         name: latitude
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: The latitude of the location
+ *       - in: query
+ *         name: longitude
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: The longitude of the location
+ *     responses:
+ *       200:
+ *         description: Weather data retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 current:
+ *                   type: object
+ *                   properties:
+ *                     temperature_2m:
+ *                       type: number
+ *                       description: Current temperature in degrees Celsius
+ *                     rain:
+ *                       type: number
+ *                       description: Current rainfall amount in mm
+ *       400:
+ *         description: Bad request parameters
+ *       500:
+ *         description: Error fetching weather data
+ */
+
+/**
+ * @swagger
+ * /random-joke:
+ *   get:
+ *     summary: Get a random joke
+ *     description: Retrieves a random joke.
+ *     tags:
+ *       - Joke API
+ *     responses:
+ *       200:
+ *         description: Random joke retrieved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 id:
+ *                   type: number
+ *                   description: Joke ID
+ *                 type:
+ *                   type: string
+ *                   description: Joke type
+ *                 setup:
+ *                   type: string
+ *                   description: Joke setup
+ *                 punchline:
+ *                   type: string
+ *                   description: Joke punchline
+ *       500:
+ *         description: Error fetching joke
+ */
 
 
 const express = require('express');
