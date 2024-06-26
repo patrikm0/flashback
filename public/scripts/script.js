@@ -47,17 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     
-    // Check if elements exist before adding event listeners
-    const genreDropdown = document.getElementById('Genres');
-    if (genreDropdown) {
-        genreDropdown.addEventListener('change', (e) => {
-            const selectedGenre = e.target.value;
-            displayGames(selectedGenre);
-        });
-    } else {
-        console.error('Genres dropdown not found');
-    }
-    
     const signupForm = document.getElementById('signup-form');
     if (signupForm) {
         signupForm.addEventListener('submit', async (e) => {
